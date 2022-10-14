@@ -16,8 +16,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class ServiceEnviaEmail {
 	
-	private String userName = "alexemailformacaojavaweb@gmail.com";
-	private String senha = "18*467894*-+";
+	private String userName = "wolfdarkpunk2077@gmail.com";
+	private String senha = "mejinrdylfypmxpm";
 
 	public void enviarEmail (String assunto, String emailDestino, String mensagem) throws Exception {
 		

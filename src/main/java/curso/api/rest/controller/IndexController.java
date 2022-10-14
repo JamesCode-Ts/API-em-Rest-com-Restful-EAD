@@ -119,27 +119,17 @@ public class IndexController {
 		return new ResponseEntity<Page<Usuario>>(list, HttpStatus.OK);
 	}
 
-	/* END-POINT consulta de usuário por nome */
+	/*END-POINT consulta de usuário por nome*/
 	@GetMapping(value = "/usuarioPorNome/{nome}", produces = "application/json")
 	@CachePut("cacheusuarios")
-	public ResponseEntity<Page<Usuario>> usuarioPorNome(@PathVariable("nome") String nome) throws InterruptedException {
-
-		PageRequest pageRequest = null;
-		Page<Usuario> list = null;
-
-		if (nome == null || (nome != null && nome.trim().isEmpty())
-				|| nome.equalsIgnoreCase("undefined")) {/* Não informou nome */
-
-			pageRequest = PageRequest.of(0, 5, Sort.by("nome"));
-			list = usuarioRepository.findAll(pageRequest);
-		} else {
-			pageRequest = PageRequest.of(0, 5, Sort.by("nome"));
-			list = usuarioRepository.findUserByNamePage(nome, pageRequest);
-		}
-
-		return new ResponseEntity<Page<Usuario>>(list, HttpStatus.OK);
+	public ResponseEntity<List<Usuario>> usuarioPorNome (@PathVariable("nome") String nome) throws InterruptedException{
+		
+		List<Usuario> list = (List<Usuario>) usuarioRepository.findUserByNome(nome);
+		
+		return new ResponseEntity<List<Usuario>>(list, HttpStatus.OK);
 	}
-
+	
+	
 	/* END-POINT consulta de usuário por nome */
 	@GetMapping(value = "/usuarioPorNome/{nome}/page/{page}", produces = "application/json")
 	@CachePut("cacheusuarios")
@@ -163,6 +153,7 @@ public class IndexController {
 	}
 
 	@PostMapping(value = "/", produces = "application/json")
+	@CachePut("cacheusuarios")
 	public ResponseEntity<Usuario> cadastrar(@RequestBody @Valid Usuario usuario) {
 
 		for (int pos = 0; pos < usuario.getTelefones().size(); pos++) {

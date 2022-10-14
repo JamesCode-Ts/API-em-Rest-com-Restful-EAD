@@ -35,7 +35,9 @@ public class WebConfigSecurity extends WebSecurityConfigurerAdapter {
 		.antMatchers("/index", "/recuperar/**").permitAll()
 		
 		.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+		 /* Permitir o delete */
 		
+		.antMatchers(HttpMethod.DELETE, "/**").permitAll() 
 		/*URL de Logout - Redireciona após o user deslogar do sistema*/
 		.anyRequest().authenticated().and().logout().logoutSuccessUrl("/index")
 		
