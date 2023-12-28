@@ -14,6 +14,8 @@ Java
 
 SpringBoot
 
+Spring Security
+
 PostgreSQL
 
 Devtools
